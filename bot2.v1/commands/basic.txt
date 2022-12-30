@@ -1,0 +1,11 @@
+module.exports = //funcion para iniciar
+{
+    name: '',  //nombre del comando
+    description: 'test command', //descripcion
+    execute(client, message, args, Discord)
+    {
+        //aca va el codigo a ejecutar
+        
+    }
+
+}
