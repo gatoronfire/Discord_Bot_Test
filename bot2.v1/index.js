@@ -35,3 +35,6 @@ const command_files = fs.readdirSync('./commands/').filter(file => file.endsWith
    
 
 client.login(process.env.TOKEN);
+
+//para seguir deberiamos aplicar este video:
+//https://www.youtube.com/watch?v=Sihf7B8D4Y8&list=RDCMUC08G-UJT58SbkdmcOYyOQVw&index=24&ab_channel=CodeLyon
