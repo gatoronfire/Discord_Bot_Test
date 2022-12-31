@@ -4,7 +4,7 @@ if (process.env.NODE_ENV !== "production") {
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-const prefix = '-';
+const prefix = "-";
 const fs = require('fs');
 client.commands = new Discord.Collection();
 
@@ -27,10 +27,11 @@ const command_files = fs.readdirSync('./commands/').filter(file => file.endsWith
         const command = args.shift().toLowerCase();
 
         if(command == 'ping'){
-            message.channel.send("pong");
-            //client.commands.get('ping').execute(message, args);
-        }else if(command == 'borrar'){client.command.get('borrar').execute(message, args);}
+            client.commands.get('ping').execute(message, args);
+        }else if(command == 'borrar'){client.commands.get('borrar').execute(message, args);}
+        else if(command == 'help'){client.commands.get('help').execute(message, args);}
 
    })
+   
 
 client.login(process.env.TOKEN);
