@@ -1,3 +1,6 @@
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+}
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
@@ -30,4 +33,4 @@ const command_files = fs.readdirSync('./commands/').filter(file => file.endsWith
 
    })
 
-client.login('NzM1ODg5NjA2MTIxMjI2MzAz.GpHNho.R89dvRJ0YcayVphK_NRmD-0K0GpFSgiA_0PEfo');
+client.login(process.env.TOKEN);
