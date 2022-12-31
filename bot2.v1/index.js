@@ -4,11 +4,17 @@ if (process.env.NODE_ENV !== "production") {
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-const prefix = "-";
 const fs = require('fs');
-client.commands = new Discord.Collection();
 
-const command_files = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
+
+client.commands = new Discord.Collection();
+client.events = new Discord.Collection();
+
+['command_hand', 'event_hnd'].forEach(handler =>{
+        require(`./handlers/${handler}`)(client, Discord);
+})
+
+/*const command_files = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
     for(const file of command_files){
         const command = require(`./commands/${file}`);
         
@@ -31,10 +37,11 @@ const command_files = fs.readdirSync('./commands/').filter(file => file.endsWith
         }else if(command == 'borrar'){client.commands.get('borrar').execute(message, args);}
         else if(command == 'help'){client.commands.get('help').execute(message, args);}
 
-   })
+   })*/
    
 
 client.login(process.env.TOKEN);
 
 //para seguir deberiamos aplicar este video:
 //https://www.youtube.com/watch?v=Sihf7B8D4Y8&list=RDCMUC08G-UJT58SbkdmcOYyOQVw&index=24&ab_channel=CodeLyon
+
