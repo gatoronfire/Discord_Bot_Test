@@ -11,17 +11,18 @@ module.exports = //funcion para iniciar
         const guild = message.guild;
      
        message.guild.members.fetch().then(m => {
-        let members = m.map(u => u.user.username)
-        let role = m.map(u => u.roles.cache.filter((roles) => roles.id !== 
-       message.guild.id).map((role) => role.toString()))
-      
+        let usernames = m.map(u => u.user.username);
+
+        let rolenumbres = m.map(u => u.roles.cache.filter((roles) => roles.id !== message.guild.id).map((role) => role.toString()));
+
+        let rolenames = m.map(u => u.roles.cache.filter((roles) => roles.id !== message.guild.id).map((role) => role.name));
+
+      (message.guild.roles.cache.filter((roles) => roles.id !== message.guild.id).map((role)=> role.name))
+
         for(let i=0; i< members.length; i++){ 
-            message.channel.send(members[i] + ", " + role[i])
+            message.channel.send(members[i] + ", " + rolenames[i])
         }
       })
-                                
-       //si queres sacar los roles que taguea el bot copia esto:
-       //message.member.roles.cache.filter((roles) => roles.id !== message.guild.id).map((role) => role.toString())
     }
 
 }
