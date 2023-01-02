@@ -6,7 +6,7 @@ module.exports = //funcion para iniciar
     execute(client, message, args, Discord)
     {
         const newEmbed = new Discord.MessageEmbed()
-        .setColor('#A7B4FF')
+        .setColor(message.member.displayHexColor)
         .setTitle('**```Lista de Comandos```**')
         .addFields
         (

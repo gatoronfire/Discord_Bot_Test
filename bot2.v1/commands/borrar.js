@@ -13,7 +13,7 @@ module.exports = //funcion para iniciar
 
         await message.channel.messages.fetch({limit: args[0]}).then(messages =>
             {
-                if(message.member.roles.cache.has('812851751261962291'))
+                if(message.member.roles.cache.has('991231288860217357'))
                 {
                     message.channel.bulkDelete(messages);
                 } else 
