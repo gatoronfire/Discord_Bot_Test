@@ -14,8 +14,12 @@ module.exports = //funcion para iniciar
      
        message.guild.members.fetch().then(m => {
         let members = m.map(u => u.user.username)
-        console.log(members) 
-        
+        let role = m.map(u => u.roles.cache.filter((roles) => roles.id !== 
+       message.guild.id).map((role) => role.toString()))
+        message.channel.send(role);
+        message.channel.send(members);
+
+
 
         //you can also use "m.each(u => console.log(u.user.username))" to log each one individually
       })
