@@ -20,6 +20,7 @@ module.exports = //funcion para iniciar
 
         let test = message.member.permissions.has((1 << 3));
         message.channel.send(test);
+        
 
         /*for(let i=0; i< usernames.length; i++){ 
             message.channel.send(usernames[i] + " is: " + rolenames[i])
