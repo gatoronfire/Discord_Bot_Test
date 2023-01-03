@@ -1,11 +1,20 @@
 if (process.env.NODE_ENV !== "production") {
     require('dotenv').config();
 }
+const mongoose = require('mongoose');
 const Discord = require('discord.js');
+const fs = require('fs');
 const client = new Discord.Client();
 
-const fs = require('fs');
-
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/thebluehell';
+mongoose.connect(dbUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
+mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
+mongoose.connection.once('open', () => {
+    console.log('Database connected');
+});
 
 client.commands = new Discord.Collection();
 client.events = new Discord.Collection();

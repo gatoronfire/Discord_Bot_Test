@@ -13,6 +13,7 @@
     "dotenv": "^16.0.3",
     "fs": "^0.0.1-security",
     "images-scraper": "^6.3.0",
+    "mongoose": "^6.8.2",
     "ytdl-core": "^4.5.0"
   }
 }
