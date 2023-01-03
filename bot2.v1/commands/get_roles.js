@@ -1,4 +1,5 @@
 const { Collection } = require("discord.js");
+const { PermissionsBitField } = require('discord.js');
 
 module.exports = //funcion para iniciar
 {
@@ -17,11 +18,12 @@ module.exports = //funcion para iniciar
 
         let rolenames = m.map(u => u.roles.cache.filter((roles) => roles.id !== message.guild.id).map((role) => role.name));
 
-      (message.guild.roles.cache.filter((roles) => roles.id !== message.guild.id).map((role)=> role.name))
+        let test = message.member.permissions.has(PermissionsBitField.Flags.KickMembers);
+        message.channel.send(test);
 
-        for(let i=0; i< members.length; i++){ 
-            message.channel.send(members[i] + ", " + rolenames[i])
-        }
+        /*for(let i=0; i< usernames.length; i++){ 
+            message.channel.send(usernames[i] + " is: " + rolenames[i])
+        }*/
       })
     }
 
