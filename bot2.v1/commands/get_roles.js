@@ -2,37 +2,16 @@ const { Collection } = require("discord.js");
 const { PermissionsBitField } = require('discord.js');
 const mongoose = require('mongoose');
 const {model, Schema} = mongoose; 
+const User = require('../models/userModel.js')
 const connectionString = process.env.DB_URL;
 
 module.exports = //funcion para iniciar
 {
-    name: 'info',  //nombre (no, no te jodo)
-    aliases: ['info'],
+    name: 'upload',  //nombre (no, no te jodo)
+    aliases: ['up'],
     description: 'get id', //descripcion
     execute( client, message, args)
     {
-        
-
-        const userSchema = new Schema({
-            usernames: String,
-            roleNumbers: String,
-            roleNames: String
-        });
-        const User = model('Usuario', userSchema);
-
-       /* User.find({/*aca va algun filtro }).then(result =>{
-            /*console.log(result);
-            mongoose.connection.close();
-        }); */
-
-        const user = new User({
-            usernames: 'Gator on fire',
-            roleNumbers: 13,
-            roleNames: 'Winged'
-        });
-
-        
-
         //aca va el codigo a ejecutar
         const guild = message.guild;
      
@@ -44,28 +23,29 @@ module.exports = //funcion para iniciar
         let roleNames = m.map(u => u.roles.cache.filter((roles) => roles.id !== message.guild.id).map((role) => role.name));
 
         let test = message.member.permissions.has((1 << 3));
-        message.channel.send("admin: " + test);
+        //message.channel.send("admin: " + test);
         
 
         for(let i=0; i< usernames.length; i++){ 
             //message.channel.send(usernames[i] + " is: " + roleNames[i])
             const user = new User({
-                usernames: usernames[i],
-                roleNumbers: roleNumbers[i],
-                roleNames: roleNames[i]
+                usernames: usernames[i].toString(),
+                roleNames: roleNames[i].toString()
+            });
+                user.save()
+                .then(result =>{
+                console.log(result);
+                })
+            .catch(err =>{
+                console.error(err);
             });
         }
 
-        user.save()
-        .then(result =>{
-            console.log(result);
-            mongoose.connection.close();
-        })
-        .catch(err =>{
-            console.error(err);
-        });
 
-      })
+      });
+
+      //mongoose.connection.close();
+
     }
 
 }
