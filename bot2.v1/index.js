@@ -2,6 +2,9 @@ if (process.env.NODE_ENV !== "production") {
     require('dotenv').config();
 }
 const mongoose = require('mongoose');
+const connectionString = process.env.DB_URL;
+
+
 const Discord = require('discord.js');
 const fs = require('fs');
 const client = new Discord.Client();
@@ -15,6 +18,17 @@ mongoose.connection.on('error', console.error.bind(console, 'connection error:')
 mongoose.connection.once('open', () => {
     console.log('Database connected');
 });
+
+mongoose.connect(connectionString,{
+    useNewURLParser: true,
+    useUnifiedTopology:true,
+    useFindAndModify:false,
+    useCretorIndex:true
+})
+.then(()=> {
+    console.log('conectado a la base de datos');
+}).catch(err => {console.error(err)});
+
 
 client.commands = new Discord.Collection();
 client.events = new Discord.Collection();
