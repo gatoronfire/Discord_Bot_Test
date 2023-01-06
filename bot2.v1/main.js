@@ -9,6 +9,8 @@ const { Collection } = require("discord.js");
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
+let results = '';
+
 function loginDB(){
         const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/thebluehell';
     mongoose.connect(dbUrl, {
@@ -70,10 +72,13 @@ client.on('message', message =>{
         }); //end message fetch 
     }else{if(command == 'use'){
         
-        User.find({}).then(result =>{
+        User.find().select({_id: 0, usernames: 1}).then(result =>{
             //console.log(result);
             if(result.length > 0){
-                message.channel.send(result);
+                for(let i = 0; result.length > i; i++){
+                    results += result[i].usernames + '\n';
+                }
+                message.channel.send(results);
             }else{message.channel.send('files not founded');}
         });
     }else{if(command == 'd'){
@@ -82,3 +87,13 @@ client.on('message', message =>{
 }); 
 
 client.login(process.env.TOKEN);
+
+// User.find().select({_id: 0, usernames: 1}).then(result =>{
+//     //console.log(result);
+//     if(result.length > 0){
+//         for(let i = 0; result.length > i; i++){
+//             results += result[i].usernames + '\n';
+//         }
+//     }
+// });
+//de la manera de arriba se obtiene (en este caso) el username de cada usuario, puede ser cualquier valor que tenga el model
