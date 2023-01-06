@@ -77,7 +77,7 @@ client.on('message', message =>{
             }else{message.channel.send('files not founded');}
         });
     }else{if(command == 'd'){
-        User.remove().then(message.channel.send('deleted User'));
+        User.deleteMany().then(message.channel.send('deleted User'));
     }}}
 }); 
 
