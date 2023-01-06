@@ -29,6 +29,9 @@ mongoose.connect(connectionString,{
     console.log('conectado a la base de datos');
 }).catch(err => {console.error(err)});
 
+mongoose.connection.once('open', () => {
+    console.log('Database connected')});
+
 
 client.commands = new Discord.Collection();
 client.events = new Discord.Collection();
@@ -37,30 +40,6 @@ client.events = new Discord.Collection();
         require(`./handlers/${handler}`)(client, Discord);
 })
 
-/*const command_files = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
-    for(const file of command_files){
-        const command = require(`./commands/${file}`);
-        
-            client.commands.set(command.name, command);
-        
-   }
-
-   client.once('ready',()=>{
-    console.log('online');
-   })
-
-   client.on('message', message =>{
-    if(!message.content.startsWith(prefix) || message.author.bot) return;
-
-        const args = message.content.slice(prefix.length).split(/ +/);
-        const command = args.shift().toLowerCase();
-
-        if(command == 'ping'){
-            client.commands.get('ping').execute(message, args);
-        }else if(command == 'borrar'){client.commands.get('borrar').execute(message, args);}
-        else if(command == 'help'){client.commands.get('help').execute(message, args);}
-
-   })*/
    
 
 client.login(process.env.TOKEN);

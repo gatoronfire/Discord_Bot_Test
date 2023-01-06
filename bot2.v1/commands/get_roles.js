@@ -1,10 +1,26 @@
 const { Collection } = require("discord.js");
 const { PermissionsBitField } = require('discord.js');
 const mongoose = require('mongoose');
-const {model, Schema} = mongoose; 
 const User = require('../models/userModel.js')
 const connectionString = process.env.DB_URL;
+let count = 0;
+const resetDB = async()=>{
+ await User.deleteMany({}, function(err) { 
+    message.channel.send('collection removed') 
+    });
+}
 
+const upload = async(user)=>{
+
+    await user.save()
+    .then(result =>{
+    console.log(result);
+    })
+.catch(err =>{
+    console.error(err);
+});
+   
+   }
 module.exports = //funcion para iniciar
 {
     name: 'upload',  //nombre (no, no te jodo)
@@ -13,6 +29,15 @@ module.exports = //funcion para iniciar
     execute( client, message, args)
     {
         //aca va el codigo a ejecutar
+       
+        mongoose.connect(connectionString,{
+            useNewURLParser: true,
+            useUnifiedTopology:true,
+            useFindAndModify:false,
+            useCretorIndex:true
+        });
+     
+
         const guild = message.guild;
      
        message.guild.members.fetch().then(m => {
@@ -25,29 +50,37 @@ module.exports = //funcion para iniciar
         let test = message.member.permissions.has((1 << 3));
         //message.channel.send("admin: " + test);
         
+        /*User.find({}).then(result =>{
+            console.log(result);
+            if(result.length > 0){
+                resetDB();
+            }});*/
 
         for(let i=0; i< usernames.length; i++){ 
-            //message.channel.send(usernames[i] + " is: " + roleNames[i])
             const user = new User({
                 usernames: usernames[i].toString(),
                 roleNames: roleNames[i].toString()
             });
-                user.save()
-                .then(result =>{
-                console.log(result);
-                })
-            .catch(err =>{
-                console.error(err);
-            });
-        }
 
+            User.find({usernames: usernames[i].toString()}).then(result =>{
+                if(result.length == 0){
+                    
+                    // upload(user);
+                                user.save()
+                                    .then(result =>{
+                                    //console.log(result),
+                                    ;
+                                    })
+                                .catch(err =>{
+                                    console.error(err);});
 
-      });
-
-      //mongoose.connection.close();
-
+                }});
+      }});
+        
+      message.channel.send('uploaded ' + count);
+       
     }
-
+                
 }
 /*
 CREATE_INSTANT_INVITE	0x0000000000000001
