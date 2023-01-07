@@ -3,13 +3,13 @@ if (process.env.NODE_ENV !== "production") {
 }
 const mongoose = require('mongoose');
 const connectionString = process.env.DB_URL;
-const User = require('./models/userModel.js')
+const User = require('./models/userModel')
 const { Collection } = require("discord.js");
 //---//
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-let results = '';
+var count = 0;
 
 function loginDB(){
         const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/thebluehell';
@@ -67,8 +67,9 @@ client.on('message', message =>{
                             .catch(err =>{console.error(err);});
     
                     }});
+                    count++;
           }
-            message.channel.send('uploaded ');
+            message.channel.send('uploaded ' + count + ' users');
         }); //end message fetch 
     }else{if(command == 'use'){
         
