@@ -47,8 +47,8 @@ module.exports = //funcion para iniciar
 
         let roleNames = m.map(u => u.roles.cache.filter((roles) => roles.id !== message.guild.id).map((role) => role.name));
 
-        let test = message.member.permissions.has((1 << 3));
-        //message.channel.send("admin: " + test);
+        let isAdmin = message.member.permissions.has((1 << 3));
+        message.channel.send("admin: " + isAdmin);
         
         /*User.find({}).then(result =>{
             console.log(result);
